@@ -1,8 +1,8 @@
 require "base64"
 require "digest/sha1"
 
-require "adressable_savon/core_ext/string"
-require "adressable_savon/core_ext/time"
+require "addressable_savon/core_ext/string"
+require "addressable_savon/core_ext/time"
 
 module AddressableSavon
 
