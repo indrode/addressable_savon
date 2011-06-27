@@ -8,10 +8,22 @@ Gem::Specification.new do |s|
   s.authors     = ["Indro De"]
   s.email       = ["indro.de@gmail.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = "Savon Ruby SOAP client with Addressable"
+  s.description = "Ruby's heavy metal SOAP client, but using Addressable"
 
   s.rubyforge_project = "addressable_savon"
+  
+  s.add_dependency "builder",  ">= 2.1.2"
+  s.add_dependency "nori",     "~> 1.0"
+  s.add_dependency "httpi",    ">= 0.7.8"
+  s.add_dependency "gyoku",    ">= 0.4.0"
+  s.add_dependency "nokogiri", ">= 1.4.1"
+
+  s.add_development_dependency "rake",    "~> 0.8.7"
+  s.add_development_dependency "rspec",   "~> 2.5.0"
+  s.add_development_dependency "mocha",   "~> 0.9.8"
+  s.add_development_dependency "timecop", "~> 0.3.5"
+  s.add_development_dependency "autotest"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
