@@ -1,5 +1,6 @@
 require "addressable_savon/core_ext/object"
 require "addressable_savon/core_ext/string"
+require "addressable/uri"
 
 module AddressableSavon
   module WSDL
@@ -72,7 +73,7 @@ module AddressableSavon
           "s0:definitions/s0:service//soap12:address/@location",
           "s0" => "http://schemas.xmlsoap.org/wsdl/",
           "soap12" => "http://schemas.xmlsoap.org/wsdl/soap12/")
-        @endpoint = Addressable::URI(URI.escape(endpoint.to_s)) if endpoint
+        @endpoint = URI.escape(endpoint.to_s) if endpoint
       end
 
       def parse_operations
