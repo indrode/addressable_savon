@@ -1,4 +1,5 @@
 require "spec_helper"
+require "addressable/uri"
 
 describe AddressableSavon::SOAP::Request do
   let :request do
@@ -29,7 +30,8 @@ describe AddressableSavon::SOAP::Request do
 
   describe ".new" do
     it "uses the SOAP endpoint for the request" do
-      request.request.url.should == URI(soap.endpoint)
+      #request.request.url.should == URI(soap.endpoint)
+      request.request.url.should == Addressable::URI(soap.endpoint)
     end
 
     it "sets the SOAP body for the request" do
