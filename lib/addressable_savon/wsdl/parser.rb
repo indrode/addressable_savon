@@ -1,7 +1,7 @@
 require "addressable_savon/core_ext/object"
 require "addressable_savon/core_ext/string"
 
-module Savon
+module AddressableSavon
   module WSDL
 
     # = AddressableSavon::WSDL::Parser

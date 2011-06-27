@@ -31,9 +31,9 @@ module AddressableSavon
 
       # Logs the HTTP request and yields to a given +block+.
       def with_logging
-        Savon.log "----"
-        Savon.log "WSDL request: #{request.url}"
-        Savon.log "Using :#{request.auth.type} authentication" if request.auth?
+        AddressableSavon.log "----"
+        AddressableSavon.log "WSDL request: #{request.url}"
+        AddressableSavon.log "Using :#{request.auth.type} authentication" if request.auth?
         yield
       end
 
