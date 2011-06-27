@@ -34,7 +34,8 @@ describe AddressableSavon::WSDL::Parser do
     end
 
     it "returns the SOAP endpoint" do
-      parser.endpoint.should == URI("http://example.com/api/api")
+      #parser.endpoint.should == URI("http://example.com/api/api")
+      parser.endpoint.should == Addressable::URI("http://example.com/api/api")
     end
 
     it "returns the available SOAP operations" do
@@ -68,7 +69,8 @@ describe AddressableSavon::WSDL::Parser do
     end
 
     it "returns the SOAP endpoint" do
-      parser.endpoint.should == URI("https://test-api.geotrust.com/webtrust/query.jws")
+      #parser.endpoint.should == URI("https://test-api.geotrust.com/webtrust/query.jws")
+      parser.endpoint.should == Addressable::URI("https://test-api.geotrust.com/webtrust/query.jws")
     end
 
     it "returns the available SOAP operations" do
