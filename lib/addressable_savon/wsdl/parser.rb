@@ -72,7 +72,7 @@ module AddressableSavon
           "s0:definitions/s0:service//soap12:address/@location",
           "s0" => "http://schemas.xmlsoap.org/wsdl/",
           "soap12" => "http://schemas.xmlsoap.org/wsdl/soap12/")
-        @endpoint = URI(URI.escape(endpoint.to_s)) if endpoint
+        @endpoint = Addressable::URI(Addressable::URI.escape(endpoint.to_s)) if endpoint
       end
 
       def parse_operations
