@@ -51,17 +51,17 @@ module AddressableSavon
 
       # Logs the SOAP request +url+, +headers+ and +body+.
       def log_request(url, headers, body)
-        Savon.log "----"
-        Savon.log "SOAP request: #{url}"
-        Savon.log headers.map { |key, value| "#{key}: #{value}" }.join(", ")
-        Savon.log body
+        AddressableSavon.log "----"
+        AddressableSavon.log "SOAP request: #{url}"
+        AddressableSavon.log headers.map { |key, value| "#{key}: #{value}" }.join(", ")
+        AddressableSavon.log body
       end
 
       # Logs the SOAP response +code+ and +body+.
       def log_response(code, body)
-        Savon.log "----"
-        Savon.log "SOAP response (status #{code}):"
-        Savon.log body
+        AddressableSavon.log "----"
+        AddressableSavon.log "SOAP response (status #{code}):"
+        AddressableSavon.log body
       end
 
     end
