@@ -140,7 +140,7 @@ module AddressableSavon
     # Expects an +input+ and sets the +SOAPAction+ HTTP headers.
     def set_soap_action(input)
       soap_action = wsdl.soap_action input.to_sym
-      soap_action ||= Gyoku::XMLKey.create(input).to_sym
+      #soap_action ||= Gyoku::XMLKey.create(input).to_sym
       soap_action = :usageAuthRateChargeRequest
       http.headers["SOAPAction"] = %{"#{soap_action}"}
     end
@@ -148,7 +148,7 @@ module AddressableSavon
     # Expects a +namespace+, +input+ and +attributes+ and sets the SOAP input.
     def set_soap_input(namespace, input, attributes)
       new_input = wsdl.soap_input input.to_sym
-      new_input ||= Gyoku::XMLKey.create(input).to_sym
+      #new_input ||= Gyoku::XMLKey.create(input).to_sym      
       soap.input = [namespace, new_input, attributes].compact
     end
 
