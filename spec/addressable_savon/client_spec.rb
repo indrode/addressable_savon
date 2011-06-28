@@ -24,7 +24,7 @@ describe AddressableSavon::Client do
       end
 
       it "lets you access the HTTP object" do
-        AddressableSavon::Client.new { http.should be_an(HTTPI::Request) }
+        AddressableSavon::Client.new { http.should be_an(NHTTPI::Request) }
       end
 
       it "lets you access the WSSE object" do
@@ -44,8 +44,8 @@ describe AddressableSavon::Client do
   end
 
   describe "#http" do
-    it "returns the HTTPI::Request" do
-      client.http.should be_an(HTTPI::Request)
+    it "returns the NHTTPI::Request" do
+      client.http.should be_an(NHTTPI::Request)
     end
 
     it "memoizes the object" do
@@ -65,8 +65,8 @@ describe AddressableSavon::Client do
 
   describe "#request" do
     before do
-      HTTPI.stubs(:get).returns(new_response(:body => Fixture.wsdl(:authentication)))
-      HTTPI.stubs(:post).returns(new_response)
+      NHTTPI.stubs(:get).returns(new_response(:body => Fixture.wsdl(:authentication)))
+      NHTTPI.stubs(:post).returns(new_response)
     end
 
     context "called without any arguments" do
@@ -83,14 +83,14 @@ describe AddressableSavon::Client do
 
       it "sets the target namespace with the default identifier" do
         namespace = 'xmlns:wsdl="http://v1_0.ws.auth.order.example.com/"'
-        HTTPI::Request.any_instance.expects(:body=).with { |value| value.include? namespace }
+        NHTTPI::Request.any_instance.expects(:body=).with { |value| value.include? namespace }
 
         client.request :get_user
       end
 
       it "does not set the target namespace if soap.namespace was set to nil" do
         namespace = 'wsdl="http://v1_0.ws.auth.order.example.com/"'
-        HTTPI::Request.any_instance.expects(:body=).with { |value| !value.include?(namespace) }
+        NHTTPI::Request.any_instance.expects(:body=).with { |value| !value.include?(namespace) }
 
         client.request(:get_user) { soap.namespace = nil }
       end
@@ -115,14 +115,14 @@ describe AddressableSavon::Client do
 
       it "sets the target namespace with the given identifier" do
         namespace = 'xmlns:v1="http://v1_0.ws.auth.order.example.com/"'
-        HTTPI::Request.any_instance.expects(:body=).with { |value| value.include? namespace }
+        NHTTPI::Request.any_instance.expects(:body=).with { |value| value.include? namespace }
 
         client.request :v1, :get_user
       end
 
       it "does not set the target namespace if soap.namespace was set to nil" do
         namespace = 'xmlns:v1="http://v1_0.ws.auth.order.example.com/"'
-        HTTPI::Request.any_instance.expects(:body=).with { |value| !value.include?(namespace) }
+        NHTTPI::Request.any_instance.expects(:body=).with { |value| !value.include?(namespace) }
 
         client.request(:v1, :get_user) { soap.namespace = nil }
       end
@@ -146,7 +146,7 @@ describe AddressableSavon::Client do
       end
 
       it "lets you access the HTTP object" do
-        client.request(:authenticate) { http.should be_an(HTTPI::Request) }
+        client.request(:authenticate) { http.should be_an(NHTTPI::Request) }
       end
 
       it "lets you access the WSSE object" do
@@ -182,8 +182,8 @@ describe AddressableSavon::Client do
 
     context "with a Set-Cookie response header" do
       before do
-        HTTPI.stubs(:get).returns(new_response(:body => Fixture.wsdl(:authentication)))
-        HTTPI.stubs(:post).returns(new_response(:headers => { "Set-Cookie" => "user:mac" }))
+        NHTTPI.stubs(:get).returns(new_response(:body => Fixture.wsdl(:authentication)))
+        NHTTPI.stubs(:post).returns(new_response(:headers => { "Set-Cookie" => "user:mac" }))
       end
 
       it "sets the Cookie header for the next request" do
@@ -198,14 +198,14 @@ describe AddressableSavon::Client do
 
   context "with a remote WSDL document" do
     let(:client) { AddressableSavon::Client.new Endpoint.wsdl }
-    before { HTTPI.expects(:get).returns(new_response(:body => Fixture.wsdl(:authentication))) }
+    before { NHTTPI.expects(:get).returns(new_response(:body => Fixture.wsdl(:authentication))) }
 
     it "returns a list of available SOAP actions" do
       client.wsdl.soap_actions.should == [:authenticate]
     end
 
     it "adds a SOAPAction header containing the SOAP action name" do
-      HTTPI.stubs(:post).returns(new_response)
+      NHTTPI.stubs(:post).returns(new_response)
 
       client.request :authenticate do
         http.headers["SOAPAction"].should == %{"authenticate"}
@@ -213,7 +213,7 @@ describe AddressableSavon::Client do
     end
 
     it "executes SOAP requests and returns the response" do
-      HTTPI.expects(:post).returns(new_response)
+      NHTTPI.expects(:post).returns(new_response)
       response = client.request(:authenticate)
 
       response.should be_a(AddressableSavon::SOAP::Response)
@@ -224,14 +224,14 @@ describe AddressableSavon::Client do
   context "with a local WSDL document" do
     let(:client) { AddressableSavon::Client.new "spec/fixtures/wsdl/authentication.xml" }
 
-    before { HTTPI.expects(:get).never }
+    before { NHTTPI.expects(:get).never }
 
     it "returns a list of available SOAP actions" do
       client.wsdl.soap_actions.should == [:authenticate]
     end
 
     it "adds a SOAPAction header containing the SOAP action name" do
-      HTTPI.stubs(:post).returns(new_response)
+      NHTTPI.stubs(:post).returns(new_response)
 
       client.request :authenticate do
         http.headers["SOAPAction"].should == %{"authenticate"}
@@ -239,14 +239,14 @@ describe AddressableSavon::Client do
     end
 
     it "gets the value of #element_form_default from the WSDL" do
-      HTTPI.stubs(:post).returns(new_response)
+      NHTTPI.stubs(:post).returns(new_response)
       AddressableSavon::WSDL::Document.any_instance.expects(:element_form_default).returns(:qualified)
 
       client.request :authenticate
     end
 
     it "executes SOAP requests and returns the response" do
-      HTTPI.expects(:post).returns(new_response)
+      NHTTPI.expects(:post).returns(new_response)
       response = client.request(:authenticate)
 
       response.should be_a(AddressableSavon::SOAP::Response)
@@ -256,12 +256,12 @@ describe AddressableSavon::Client do
 
   context "when the WSDL specifies multiple namespaces" do
     before do
-      HTTPI.stubs(:get).returns(new_response(:body => Fixture.wsdl(:multiple_namespaces)))
-      HTTPI.stubs(:post).returns(new_response)
+      NHTTPI.stubs(:get).returns(new_response(:body => Fixture.wsdl(:multiple_namespaces)))
+      NHTTPI.stubs(:post).returns(new_response)
     end
 
     it "qualifies each element with the appropriate namespace" do
-      HTTPI::Request.any_instance.expects(:body=).with { |value|
+      NHTTPI::Request.any_instance.expects(:body=).with { |value|
         xml = Nokogiri::XML(value)
         title = xml.at_xpath(
           ".//actions:Save/actions:article/article:Title/text()",
@@ -280,7 +280,7 @@ describe AddressableSavon::Client do
     end
 
     it "still sends nil as xsi:nil as in the non-namespaced case" do
-      HTTPI::Request.any_instance.expects(:body=).with { |value|
+      NHTTPI::Request.any_instance.expects(:body=).with { |value|
         xml = Nokogiri::XML(value)
         attribute = xml.at_xpath(".//article:Title/@xsi:nil",
           "xsi" => "http://www.w3.org/2001/XMLSchema-instance",
@@ -294,7 +294,7 @@ describe AddressableSavon::Client do
     end
 
     it "translates between symbol :save and string 'Save'" do
-      HTTPI::Request.any_instance.expects(:body=).with { |value|
+      NHTTPI::Request.any_instance.expects(:body=).with { |value|
         xml = Nokogiri::XML(value)
         !!xml.at_xpath(".//actions:Save",
           "actions" => "http://example.com/actions")
@@ -306,7 +306,7 @@ describe AddressableSavon::Client do
     end
 
     it "qualifies Save with the appropriate namespace" do
-      HTTPI::Request.any_instance.expects(:body=).with { |value|
+      NHTTPI::Request.any_instance.expects(:body=).with { |value|
         xml = Nokogiri::XML(value)
         !!xml.at_xpath(".//actions:Save",
           "actions" => "http://example.com/actions")
@@ -320,12 +320,12 @@ describe AddressableSavon::Client do
 
   context "when the WSDL has a lowerCamel name" do
     before do
-      HTTPI.stubs(:get).returns(new_response(:body => Fixture.wsdl(:lower_camel)))
-      HTTPI.stubs(:post).returns(new_response)
+      NHTTPI.stubs(:get).returns(new_response(:body => Fixture.wsdl(:lower_camel)))
+      NHTTPI.stubs(:post).returns(new_response)
     end
 
     it "appends namespace when name is specified explicitly" do
-      HTTPI::Request.any_instance.expects(:body=).with { |value|
+      NHTTPI::Request.any_instance.expects(:body=).with { |value|
         xml = Nokogiri::XML(value)
         !!xml.at_xpath(".//actions:Save/actions:lowerCamel",
           "actions" => "http://example.com/actions")
@@ -337,7 +337,7 @@ describe AddressableSavon::Client do
     end
 
     it "still appends namespace when converting from symbol" do
-      HTTPI::Request.any_instance.expects(:body=).with { |value|
+      NHTTPI::Request.any_instance.expects(:body=).with { |value|
         xml = Nokogiri::XML(value)
         !!xml.at_xpath(".//actions:Save/actions:lowerCamel",
           "actions" => "http://example.com/actions")
@@ -351,12 +351,12 @@ describe AddressableSavon::Client do
 
   context "with multiple types" do
     before do
-      HTTPI.stubs(:get).returns(new_response(:body => Fixture.wsdl(:multiple_types)))
-      HTTPI.stubs(:post).returns(new_response)
+      NHTTPI.stubs(:get).returns(new_response(:body => Fixture.wsdl(:multiple_types)))
+      NHTTPI.stubs(:post).returns(new_response)
     end
 
     it "does not blow up" do
-      HTTPI::Request.any_instance.expects(:body=).with { |value|
+      NHTTPI::Request.any_instance.expects(:body=).with { |value|
         value.include?("Save")
       }
 
@@ -374,14 +374,14 @@ describe AddressableSavon::Client do
       end
     end
 
-    before { HTTPI.expects(:get).never }
+    before { NHTTPI.expects(:get).never }
 
     it "raises an ArgumentError when trying to access the WSDL" do
       expect { client.wsdl.soap_actions }.to raise_error(ArgumentError)
     end
 
     it "adds a SOAPAction header containing the SOAP action name" do
-      HTTPI.stubs(:post).returns(new_response)
+      NHTTPI.stubs(:post).returns(new_response)
 
       client.request :authenticate do
         http.headers["SOAPAction"].should == %{"authenticate"}
@@ -389,14 +389,14 @@ describe AddressableSavon::Client do
     end
 
     it "does not try to get the value of #element_form_default from the WSDL" do
-      HTTPI.stubs(:post).returns(new_response)
+      NHTTPI.stubs(:post).returns(new_response)
       AddressableSavon::WSDL::Document.any_instance.expects(:element_form_default).never
 
       client.request :authenticate
     end
 
     it "executes SOAP requests and returns the response" do
-      HTTPI.expects(:post).returns(new_response)
+      NHTTPI.expects(:post).returns(new_response)
       response = client.request(:authenticate)
 
       response.should be_a(AddressableSavon::SOAP::Response)
@@ -414,7 +414,7 @@ describe AddressableSavon::Client do
 
     before do
       response = new_response :code => 500, :body => Fixture.response(:soap_fault)
-      HTTPI::expects(:post).returns(response)
+      NHTTPI::expects(:post).returns(response)
     end
 
     it "raises a AddressableSavon::SOAP::Fault" do
@@ -430,7 +430,7 @@ describe AddressableSavon::Client do
       end
     end
 
-    before { HTTPI::expects(:post).returns(new_response(:code => 500)) }
+    before { NHTTPI::expects(:post).returns(new_response(:code => 500)) }
 
     it "raises a AddressableSavon::HTTP::Error" do
       expect { client.request :authenticate }.to raise_error(AddressableSavon::HTTP::Error)
@@ -441,7 +441,7 @@ describe AddressableSavon::Client do
     defaults = { :code => 200, :headers => {}, :body => Fixture.response(:authentication) }
     response = defaults.merge options
 
-    HTTPI::Response.new response[:code], response[:headers], response[:body]
+    NHTTPI::Response.new response[:code], response[:headers], response[:body]
   end
 
 end

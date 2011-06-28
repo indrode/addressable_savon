@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   
   s.add_dependency "builder",  ">= 2.1.2"
   s.add_dependency "nori",     "~> 1.0"
-  s.add_dependency "httpi",    ">= 0.9.4"
+  s.add_dependency "nhttpi",    ">= 0.9.4", :git => "git://github.com/indrode/nhttpi.git", :ref => "1fd1144118dd37dafda119247908c2985caece63"
   s.add_dependency "gyoku",    ">= 0.3.1" # 0.4.0
   s.add_dependency "nokogiri", ">= 1.4.1"
   s.add_dependency "addressable", ">= 2.2.2"

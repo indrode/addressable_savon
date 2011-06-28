@@ -10,7 +10,7 @@ module AddressableSavon
     # Represents the SOAP response and contains the HTTP response.
     class Response
 
-      # Expects an <tt>HTTPI::Response</tt> and handles errors.
+      # Expects an <tt>NHTTPI::Response</tt> and handles errors.
       def initialize(response)
         self.http = response
         raise_errors if Savon.raise_errors?

@@ -11,8 +11,8 @@ describe AddressableSavon::SOAP::Fault do
   end
 
   describe "#http" do
-    it "returns the HTTPI::Response" do
-      soap_fault.http.should be_an(HTTPI::Response)
+    it "returns the NHTTPI::Response" do
+      soap_fault.http.should be_an(NHTTPI::Response)
     end
   end
 
@@ -83,7 +83,7 @@ describe AddressableSavon::SOAP::Fault do
     defaults = { :code => 500, :headers => {}, :body => Fixture.response(:authentication) }
     response = defaults.merge options
 
-    HTTPI::Response.new response[:code], response[:headers], response[:body]
+    NHTTPI::Response.new response[:code], response[:headers], response[:body]
   end
 
 end

@@ -12,13 +12,13 @@ module AddressableSavon
     # the SOAP endpoint and available SOAP actions.
     class Document
 
-      # Accepts an <tt>HTTPI::Request</tt> and a +document+.
+      # Accepts an <tt>NHTTPI::Request</tt> and a +document+.
       def initialize(request = nil, document = nil)
         self.request = request
         self.document = document
       end
 
-      # Accessor for the <tt>HTTPI::Request</tt> to use.
+      # Accessor for the <tt>NHTTPI::Request</tt> to use.
       attr_accessor :request
 
       def present?

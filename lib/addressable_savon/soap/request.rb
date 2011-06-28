@@ -1,7 +1,7 @@
-require "httpi"
+require "nhttpi"
 require "addressable_savon/soap/response"
 
-HTTPI.adapter = :curl #or net_http or httpclient
+#NHTTPI.adapter = :curl #or net_http or httpclient
 
 module AddressableSavon
   module SOAP
@@ -14,23 +14,23 @@ module AddressableSavon
       # Content-Types by SOAP version.
       ContentType = { 1 => "text/xml;charset=UTF-8", 2 => "application/soap+xml;charset=UTF-8" }
 
-      # Expects an <tt>HTTPI::Request</tt> and a <tt>Savon::SOAP::XML</tt> object
+      # Expects an <tt>NHTTPI::Request</tt> and a <tt>Savon::SOAP::XML</tt> object
       # to execute a SOAP request and returns the response.
       def self.execute(request, soap)
         new(request, soap).response
       end
 
-      # Expects an <tt>HTTPI::Request</tt> and a <tt>Savon::SOAP::XML</tt> object.
+      # Expects an <tt>NHTTPI::Request</tt> and a <tt>Savon::SOAP::XML</tt> object.
       def initialize(request, soap)
         self.request = setup(request, soap)
       end
 
-      # Accessor for the <tt>HTTPI::Request</tt>.
+      # Accessor for the <tt>NHTTPI::Request</tt>.
       attr_accessor :request
 
       # Executes the request and returns the response.
       def response
-        @response ||= with_logging { HTTPI.post request }
+        @response ||= with_logging { NHTTPI.post request }
       end
 
     private

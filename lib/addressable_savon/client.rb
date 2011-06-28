@@ -1,4 +1,4 @@
-require "httpi/request"
+require "nhttpi/request"
 require "addressable_savon/soap/xml"
 require "addressable_savon/soap/request"
 require "addressable_savon/soap/response"
@@ -45,9 +45,9 @@ module AddressableSavon
       @wsdl ||= WSDL::Document.new
     end
 
-    # Returns the <tt>HTTPI::Request</tt>.
+    # Returns the <tt>NHTTPI::Request</tt>.
     def http
-      @http ||= HTTPI::Request.new
+      @http ||= NHTTPI::Request.new
     end
 
     # Returns the <tt>AddressableSavon::WSSE</tt>.

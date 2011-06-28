@@ -3,7 +3,7 @@ require "addressable/uri"
 
 describe AddressableSavon::SOAP::Request do
   let :request do
-    AddressableSavon::SOAP::Request.new HTTPI::Request.new, soap
+    AddressableSavon::SOAP::Request.new NHTTPI::Request.new, soap
   end
 
   let :soap do
@@ -22,8 +22,8 @@ describe AddressableSavon::SOAP::Request do
 
   describe ".execute" do
     it "executes a SOAP request and returns the response" do
-      HTTPI.expects(:post).returns(HTTPI::Response.new 200, {}, Fixture.response(:authentication))
-      response = AddressableSavon::SOAP::Request.execute HTTPI::Request.new, soap
+      NHTTPI.expects(:post).returns(NHTTPI::Response.new 200, {}, Fixture.response(:authentication))
+      response = AddressableSavon::SOAP::Request.execute NHTTPI::Request.new, soap
       response.should be_a(AddressableSavon::SOAP::Response)
     end
   end
@@ -49,14 +49,14 @@ describe AddressableSavon::SOAP::Request do
 
     it "does not set the 'Content-Type' header if it's already specified" do
       headers = { "Content-Type" => "text/plain" }
-      request = AddressableSavon::SOAP::Request.new HTTPI::Request.new(:headers => headers), soap
+      request = AddressableSavon::SOAP::Request.new NHTTPI::Request.new(:headers => headers), soap
       request.request.headers["Content-Type"].should == headers["Content-Type"]
     end
   end
 
   describe "#response" do
     it "executes an HTTP POST request and returns a AddressableSavon::SOAP::Response" do
-      HTTPI.expects(:post).returns(HTTPI::Response.new 200, {}, Fixture.response(:authentication))
+      NHTTPI.expects(:post).returns(NHTTPI::Response.new 200, {}, Fixture.response(:authentication))
       request.response.should be_a(AddressableSavon::SOAP::Response)
     end
   end

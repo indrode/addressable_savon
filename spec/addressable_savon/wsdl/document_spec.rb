@@ -61,11 +61,11 @@ describe AddressableSavon::WSDL::Document do
   end
 
   context "with a remote document" do
-    let(:wsdl) { AddressableSavon::WSDL::Document.new HTTPI::Request.new, Endpoint.wsdl }
+    let(:wsdl) { AddressableSavon::WSDL::Document.new NHTTPI::Request.new, Endpoint.wsdl }
 
     before do
-      response = HTTPI::Response.new 200, {}, Fixture.wsdl(:authentication)
-      HTTPI.stubs(:get).returns(response)
+      response = NHTTPI::Response.new 200, {}, Fixture.wsdl(:authentication)
+      NHTTPI.stubs(:get).returns(response)
     end
 
     it_should_behave_like "a WSDL document"
@@ -80,16 +80,16 @@ describe AddressableSavon::WSDL::Document do
   context "with a local document" do
     let(:wsdl) do
       wsdl = "spec/fixtures/wsdl/authentication.xml"
-      AddressableSavon::WSDL::Document.new HTTPI::Request.new, wsdl
+      AddressableSavon::WSDL::Document.new NHTTPI::Request.new, wsdl
     end
 
-    before { HTTPI.expects(:get).never }
+    before { NHTTPI.expects(:get).never }
 
     it_should_behave_like "a WSDL document"
   end
 
   context "without a WSDL document" do
-    let(:wsdl) { AddressableSavon::WSDL::Document.new HTTPI::Request.new }
+    let(:wsdl) { AddressableSavon::WSDL::Document.new NHTTPI::Request.new }
 
     it "is not present" do
       wsdl.should_not be_present
@@ -115,11 +115,11 @@ describe AddressableSavon::WSDL::Document do
   end
 
   context "with a WSDL document containing elementFormDefault='qualified'" do
-    let(:wsdl) { AddressableSavon::WSDL::Document.new HTTPI::Request.new, Endpoint.wsdl }
+    let(:wsdl) { AddressableSavon::WSDL::Document.new NHTTPI::Request.new, Endpoint.wsdl }
 
     before do
-      response = HTTPI::Response.new 200, {}, Fixture.wsdl(:geotrust)
-      HTTPI.stubs(:get).returns(response)
+      response = NHTTPI::Response.new 200, {}, Fixture.wsdl(:geotrust)
+      NHTTPI.stubs(:get).returns(response)
     end
 
     describe "#element_form_default" do
@@ -130,11 +130,11 @@ describe AddressableSavon::WSDL::Document do
   end
 
   context "with a WSDL document specifying multiple namespaces" do
-    let(:wsdl) { AddressableSavon::WSDL::Document.new HTTPI::Request.new, Endpoint.wsdl }
+    let(:wsdl) { AddressableSavon::WSDL::Document.new NHTTPI::Request.new, Endpoint.wsdl }
 
     before do
-      response = HTTPI::Response.new 200, {}, Fixture.wsdl(:multiple_namespaces)
-      HTTPI.stubs(:get).returns(response)
+      response = NHTTPI::Response.new 200, {}, Fixture.wsdl(:multiple_namespaces)
+      NHTTPI.stubs(:get).returns(response)
     end
 
     describe "#type_namespaces" do

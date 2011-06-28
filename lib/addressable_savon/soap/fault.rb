@@ -6,15 +6,15 @@ module AddressableSavon
 
     # = AddressableSavon::SOAP::Fault
     #
-    # Represents a SOAP fault. Contains the original <tt>HTTPI::Response</tt>.
+    # Represents a SOAP fault. Contains the original <tt>NHTTPI::Response</tt>.
     class Fault < Error
 
-      # Expects an <tt>HTTPI::Response</tt>.
+      # Expects an <tt>NHTTPI::Response</tt>.
       def initialize(http)
         self.http = http
       end
 
-      # Accessor for the <tt>HTTPI::Response</tt>.
+      # Accessor for the <tt>NHTTPI::Response</tt>.
       attr_accessor :http
 
       # Returns whether a SOAP fault is present.

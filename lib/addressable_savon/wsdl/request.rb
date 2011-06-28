@@ -1,4 +1,4 @@
-require "httpi"
+require "nhttpi"
 
 module AddressableSavon
   module WSDL
@@ -8,23 +8,23 @@ module AddressableSavon
     # Executes WSDL requests.
     class Request
 
-      # Expects an <tt>HTTPI::Request</tt> to execute a WSDL request
+      # Expects an <tt>NHTTPI::Request</tt> to execute a WSDL request
       # and returns the response.
       def self.execute(request)
         new(request).response
       end
 
-      # Expects an <tt>HTTPI::Request</tt>.
+      # Expects an <tt>NHTTPI::Request</tt>.
       def initialize(request)
         self.request = request
       end
 
-      # Accessor for the <tt>HTTPI::Request</tt>.
+      # Accessor for the <tt>NHTTPI::Request</tt>.
       attr_accessor :request
 
       # Executes the request and returns the response.
       def response
-        @response ||= with_logging { HTTPI.get request }
+        @response ||= with_logging { NHTTPI.get request }
       end
 
     private

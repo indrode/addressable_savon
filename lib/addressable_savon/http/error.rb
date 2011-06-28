@@ -6,15 +6,15 @@ module AddressableSavon
 
     # = AddressableSavon::HTTP::Error
     #
-    # Represents an HTTP error. Contains the original <tt>HTTPI::Response</tt>.
+    # Represents an HTTP error. Contains the original <tt>NHTTPI::Response</tt>.
     class Error < Error
 
-      # Expects an <tt>HTTPI::Response</tt>.
+      # Expects an <tt>NHTTPI::Response</tt>.
       def initialize(http)
         self.http = http
       end
 
-      # Accessor for the <tt>HTTPI::Response</tt>.
+      # Accessor for the <tt>NHTTPI::Response</tt>.
       attr_accessor :http
 
       # Returns whether an HTTP error is present.

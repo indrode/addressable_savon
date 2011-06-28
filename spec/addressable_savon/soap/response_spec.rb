@@ -71,8 +71,8 @@ describe AddressableSavon::SOAP::Response do
       soap_fault_response.soap_fault.should be_a(AddressableSavon::SOAP::Fault)
     end
 
-    it "returns a AddressableSavon::SOAP::Fault containing the HTTPI::Response" do
-      soap_fault_response.soap_fault.http.should be_an(HTTPI::Response)
+    it "returns a AddressableSavon::SOAP::Fault containing the NHTTPI::Response" do
+      soap_fault_response.soap_fault.http.should be_an(NHTTPI::Response)
     end
 
     it "returns a AddressableSavon::SOAP::Fault even if the SOAP response seems to be ok" do
@@ -107,8 +107,8 @@ describe AddressableSavon::SOAP::Response do
       http_error_response.http_error.should be_a(AddressableSavon::HTTP::Error)
     end
 
-    it "returns a AddressableSavon::HTTP::Error containing the HTTPI::Response" do
-      http_error_response.http_error.http.should be_an(HTTPI::Response)
+    it "returns a AddressableSavon::HTTP::Error containing the NHTTPI::Response" do
+      http_error_response.http_error.http.should be_an(NHTTPI::Response)
     end
 
     it "returns a AddressableSavon::HTTP::Error even if the HTTP response seems to be ok" do
@@ -188,8 +188,8 @@ describe AddressableSavon::SOAP::Response do
   end
 
   describe "#http" do
-    it "returns the HTTPI::Response" do
-      soap_response.http.should be_an(HTTPI::Response)
+    it "returns the NHTTPI::Response" do
+      soap_response.http.should be_an(NHTTPI::Response)
     end
   end
 
@@ -197,7 +197,7 @@ describe AddressableSavon::SOAP::Response do
     defaults = { :code => 200, :headers => {}, :body => Fixture.response(:authentication) }
     response = defaults.merge options
 
-    AddressableSavon::SOAP::Response.new HTTPI::Response.new(response[:code], response[:headers], response[:body])
+    AddressableSavon::SOAP::Response.new NHTTPI::Response.new(response[:code], response[:headers], response[:body])
   end
 
   def soap_fault_response

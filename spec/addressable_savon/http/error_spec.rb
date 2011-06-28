@@ -9,8 +9,8 @@ describe AddressableSavon::HTTP::Error do
   end
 
   describe "#http" do
-    it "returns the HTTPI::Response" do
-      http_error.http.should be_an(HTTPI::Response)
+    it "returns the NHTTPI::Response" do
+      http_error.http.should be_an(NHTTPI::Response)
     end
   end
 
@@ -46,7 +46,7 @@ describe AddressableSavon::HTTP::Error do
     defaults = { :code => 200, :headers => {}, :body => Fixture.response(:authentication) }
     response = defaults.merge options
 
-    HTTPI::Response.new response[:code], response[:headers], response[:body]
+    NHTTPI::Response.new response[:code], response[:headers], response[:body]
   end
 
 end
