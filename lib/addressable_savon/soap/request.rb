@@ -1,6 +1,8 @@
 require "httpi"
 require "addressable_savon/soap/response"
 
+HTTPI.adapter = :curl #or net_http or httpclient
+
 module AddressableSavon
   module SOAP
 
@@ -35,6 +37,9 @@ module AddressableSavon
 
       # Sets up the +request+ using a given +soap+ object.
       def setup(request, soap)
+        
+        # puts soap.to_xml
+        
         request.url = soap.endpoint
         request.headers["Content-Type"] ||= ContentType[soap.version]
         request.body = soap.to_xml
