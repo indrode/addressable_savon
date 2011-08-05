@@ -1,0 +1,3 @@
+AddressableSavon is a Savon clone that can be run even if the SOAP endpoint is not defined correctly (according to standards).
+e.g. underscores in the URI
+URI::InvalidURIError: the scheme http does not accept registry part: some_invalid_part
